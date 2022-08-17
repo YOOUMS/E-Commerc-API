@@ -1,6 +1,8 @@
-import 'package:e_commerc_api/dioHelper.dart';
-import 'package:e_commerc_api/product.dart';
+import 'package:e_commerc_api/helpers/dioHelper.dart';
+
 import 'package:flutter/cupertino.dart';
+
+import '../model/product.dart';
 
 class DioProvider extends ChangeNotifier {
   List<product>? products;
