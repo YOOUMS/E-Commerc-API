@@ -1,9 +1,9 @@
 import 'dart:ffi';
 import 'dart:math';
 
-import 'package:e_commerc_api/Rate.dart';
+import 'package:e_commerc_api/model/Rate.dart';
 
-class product {
+class Product {
   int? id;
   String? title;
   num? price;
@@ -11,7 +11,7 @@ class product {
   String? category;
   String? image;
   Rate? rate;
-  product.fromaMap(Map<String, dynamic> json) {
+  Product.fromaMap(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     price = json['price'];

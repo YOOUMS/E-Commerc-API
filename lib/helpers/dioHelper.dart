@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:e_commerc_api/product.dart';
+
+import '../model/product.dart';
 
 class dioHelper {
   dioHelper._();
@@ -11,9 +12,9 @@ class dioHelper {
   getAllProducts() async {
     Response response = await dio.get("https://fakestoreapi.com/products");
     List dataList = response.data;
-    List<product> products = dataList
+    List<Product> products = dataList
         .map(
-          (e) => product.fromaMap(e),
+          (e) => Product.fromaMap(e),
         )
         .toList();
     return products;

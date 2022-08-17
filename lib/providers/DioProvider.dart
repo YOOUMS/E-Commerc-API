@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../model/product.dart';
 
 class DioProvider extends ChangeNotifier {
-  List<product>? products;
+  List<Product>? products;
   DioProvider() {
     getProducts();
   }
