@@ -19,4 +19,23 @@ class dioHelper {
         .toList();
     return products;
   }
+
+  getAllCat() async {
+    Response response =
+        await dio.get('https://fakestoreapi.com/products/categories');
+    List cat = response.data;
+    return cat;
+  }
+
+  getAllCatForSpcefi(String cat) async {
+    Response response =
+        await dio.get("https://fakestoreapi.com/products/category/$cat");
+    List dataList = response.data;
+    List<Product> products = dataList
+        .map(
+          (e) => Product.fromaMap(e),
+        )
+        .toList();
+    return products;
+  }
 }

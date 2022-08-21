@@ -1,5 +1,6 @@
 import 'package:e_commerc_api/providers/DioProvider.dart';
 import 'package:e_commerc_api/helpers/dioHelper.dart';
+import 'package:e_commerc_api/widgets/CatScreen.dart';
 import 'package:e_commerc_api/widgets/ProductWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (context, child) {
             return MaterialApp(
-              home: MyHomePage(),
+              home: CatScreen(),
             );
           }),
     );
@@ -34,16 +35,18 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(title: Text("All Procuts")),
-      body: Consumer<DioProvider>(builder: (context, provider, x) {
-        return Center(
-            child: ListView.builder(
-                itemCount: provider.products!.length,
-                itemBuilder: (context, index) {
-                  return ProductWidget(product: provider.products![index]);
-                }));
-      }),
-    );
+    return Consumer<DioProvider>(builder: (context, provider, x) {
+      return Scaffold(
+          appBar: AppBar(actions: [
+            IconButton(
+                onPressed: () => provider.getAllCat(), icon: Icon(Icons.print))
+          ], title: Text("All Procuts")),
+          body: Center(
+              child: ListView.builder(
+                  itemCount: provider.products!.length,
+                  itemBuilder: (context, index) {
+                    return ProductWidget(product: provider.products![index]);
+                  })));
+    });
   }
 }
