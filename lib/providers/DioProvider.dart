@@ -11,6 +11,7 @@ class DioProvider extends ChangeNotifier {
   List<dynamic> cat = [];
   List<Product> catProducts = [];
   int? selectedIndex;
+  Product? selectedProduct;
   DioProvider() {
     getProducts();
     getAllCat();
@@ -37,6 +38,11 @@ class DioProvider extends ChangeNotifier {
       catProducts = await dioHelper.diohelper.getAllCatForSpcefi(cat);
     }
 
+    notifyListeners();
+  }
+
+  getOneProduct(String id) async {
+    selectedProduct = await dioHelper.diohelper.getOneProduct(id);
     notifyListeners();
   }
 }

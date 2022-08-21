@@ -1,3 +1,4 @@
+import 'package:e_commerc_api/AppRouter.dart';
 import 'package:e_commerc_api/providers/DioProvider.dart';
 import 'package:e_commerc_api/helpers/dioHelper.dart';
 import 'package:e_commerc_api/widgets/CatScreen.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (context, child) {
             return MaterialApp(
+              navigatorKey: AppRouter.navKey,
               debugShowCheckedModeBanner: false,
               home: CatScreen(),
             );

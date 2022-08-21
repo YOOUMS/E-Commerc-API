@@ -1,5 +1,7 @@
+import 'package:e_commerc_api/AppRouter.dart';
 import 'package:e_commerc_api/model/product.dart';
 import 'package:e_commerc_api/providers/DioProvider.dart';
+import 'package:e_commerc_api/widgets/ProductScreen.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,11 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DioProvider>(builder: (context, provider, x) {
       return InkWell(
+        onTap: () async {
+          await provider.getOneProduct(product.id.toString());
+          AppRouter.pushWidget(
+              ProductScreen(product: provider.selectedProduct!));
+        },
         child: Container(
           padding: EdgeInsets.all(10.w),
           margin: EdgeInsets.only(bottom: 20.h, top: 20.h),
@@ -58,7 +65,7 @@ class ProductWidget extends StatelessWidget {
                     "\$ ${product.price}",
                     style: GoogleFonts.raleway(
                         textStyle: TextStyle(
-                            color: Color.fromARGB(255, 89, 86, 233),
+                            color: Colors.green,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.bold)),
                   )

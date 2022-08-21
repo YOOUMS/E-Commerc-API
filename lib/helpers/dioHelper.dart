@@ -38,4 +38,11 @@ class dioHelper {
         .toList();
     return products;
   }
+
+  getOneProduct(String id) async {
+    Response response = await dio.get('https://fakestoreapi.com/products/$id');
+    Product product = Product.fromaMap(response.data);
+    log(product.toString());
+    return product;
+  }
 }
