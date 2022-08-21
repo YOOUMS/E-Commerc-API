@@ -31,7 +31,7 @@ class CatScreen extends StatelessWidget {
                         "All",
                         style: TextStyle(
                             color: provider.selectedIndex == -1
-                                ? Colors.red
+                                ? Colors.green
                                 : Colors.blue),
                       )),
                   ListView.builder(
@@ -46,7 +46,7 @@ class CatScreen extends StatelessWidget {
                             provider.cat[index],
                             style: TextStyle(
                                 color: provider.selectedIndex == index
-                                    ? Colors.red
+                                    ? Colors.green
                                     : Colors.blue),
                           ))),
                 ],
