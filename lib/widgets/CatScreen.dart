@@ -19,21 +19,39 @@ class CatScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: Column(children: [
-          SizedBox(
-            height: 50.h,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: provider.cat.length,
-                itemBuilder: (context, index) => TextButton(
-                    onPressed: () =>
-                        provider.getProductsFor(provider.cat[index]),
-                    child: Text(
-                      provider.cat[index],
-                      style: TextStyle(
-                          color: provider.selectedIndex == index
-                              ? Colors.red
-                              : Colors.blue),
-                    ))),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              height: 50.h,
+              child: Row(
+                children: [
+                  TextButton(
+                      onPressed: () => provider.getProductsFor('all'),
+                      child: Text(
+                        "All",
+                        style: TextStyle(
+                            color: provider.selectedIndex == -1
+                                ? Colors.red
+                                : Colors.blue),
+                      )),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: provider.cat.length,
+                      itemBuilder: (context, index) => TextButton(
+                          onPressed: () =>
+                              provider.getProductsFor(provider.cat[index]),
+                          child: Text(
+                            provider.cat[index],
+                            style: TextStyle(
+                                color: provider.selectedIndex == index
+                                    ? Colors.red
+                                    : Colors.blue),
+                          ))),
+                ],
+              ),
+            ),
           ),
           Expanded(
             child: ListView.builder(

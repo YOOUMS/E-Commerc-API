@@ -14,6 +14,7 @@ class DioProvider extends ChangeNotifier {
   DioProvider() {
     getProducts();
     getAllCat();
+    getProductsFor('all');
   }
 
   getProducts() async {
@@ -27,9 +28,15 @@ class DioProvider extends ChangeNotifier {
   }
 
   getProductsFor(String cat) async {
-    selectedIndex = this.cat.indexOf(cat);
+    if (cat == 'all') {
+      selectedIndex = -1;
+      catProducts = await dioHelper.diohelper.getAllProducts();
+    } else {
+      selectedIndex = this.cat.indexOf(cat);
 
-    catProducts = await dioHelper.diohelper.getAllCatForSpcefi(cat);
+      catProducts = await dioHelper.diohelper.getAllCatForSpcefi(cat);
+    }
+
     notifyListeners();
   }
 }
