@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:e_commerc_api/model/AirLine.dart';
+import 'package:e_commerc_api/model/Passenger.dart';
+import 'package:e_commerc_api/model/PostRequset.dart';
 
 import '../model/product.dart';
 
@@ -44,5 +47,32 @@ class dioHelper {
     Product product = Product.fromaMap(response.data);
     log(product.toString());
     return product;
+  }
+
+  createPost(PostRequest postRequest) async {
+    Response response = await dio.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        data: postRequest.toJson());
+    log(response.statusCode.toString());
+  }
+
+  Future<List<Passenger>> getAllPassengers([int page = 0]) async {
+    Response response = await dio.get(
+        'https://api.instantwebtools.net/v1/passenger',
+        queryParameters: {'size': 10, 'page': page});
+    List data = response.data['data'];
+    List<Passenger> passengers = data.map((e) {
+      List airlinesData = e['airline'];
+
+      List<AirLine> airlines = airlinesData.map((e) {
+        return AirLine.fromJson(e);
+      }).toList();
+
+      e['airline'] = airlines;
+
+      return Passenger.fromJson(e);
+    }).toList();
+
+    return passengers;
   }
 }

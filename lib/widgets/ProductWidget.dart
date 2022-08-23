@@ -1,4 +1,5 @@
 import 'package:e_commerc_api/AppRouter.dart';
+import 'package:e_commerc_api/model/Passenger.dart';
 import 'package:e_commerc_api/model/product.dart';
 import 'package:e_commerc_api/providers/DioProvider.dart';
 import 'package:e_commerc_api/widgets/ProductScreen.dart';
@@ -10,18 +11,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProductWidget extends StatelessWidget {
-  Product product;
-  ProductWidget({Key? key, required this.product}) : super(key: key);
+  Passenger passenger;
+  ProductWidget({Key? key, required this.passenger}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<DioProvider>(builder: (context, provider, x) {
       return InkWell(
-        onTap: () async {
-          await provider.getOneProduct(product.id.toString());
-          AppRouter.pushWidget(
-              ProductScreen(product: provider.selectedProduct!));
-        },
+        // onTap: () async {
+        //   await provider.getOneProduct(product.id.toString());
+        //   AppRouter.pushWidget(
+        //       ProductScreen(product: provider.selectedProduct!));
+        // },
         child: Container(
           padding: EdgeInsets.all(10.w),
           margin: EdgeInsets.only(bottom: 20.h, top: 20.h),
@@ -36,7 +37,9 @@ class ProductWidget extends StatelessWidget {
             ),
           ], color: Colors.white, borderRadius: BorderRadius.circular(10.r)),
           child: Row(children: [
-            SizedBox(width: 150.w, child: Image.network(product.image ?? '')),
+            SizedBox(
+              width: 150.w,
+            ),
             SizedBox(
               width: 9.w,
             ),
@@ -52,7 +55,7 @@ class ProductWidget extends StatelessWidget {
                     height: 100.h,
                     width: double.infinity,
                     child: Text(
-                      product.title ?? "no title",
+                      passenger.name ?? "no name",
                       style: GoogleFonts.raleway(
                           textStyle: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15.sp)),
@@ -62,7 +65,7 @@ class ProductWidget extends StatelessWidget {
                     height: 12.h,
                   ),
                   Text(
-                    "\$ ${product.price}",
+                    passenger.trips.toString(),
                     style: GoogleFonts.raleway(
                         textStyle: TextStyle(
                             color: Colors.green,

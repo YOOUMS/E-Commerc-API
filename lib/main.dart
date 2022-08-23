@@ -34,22 +34,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Consumer<DioProvider>(builder: (context, provider, x) {
-      return Scaffold(
-          appBar: AppBar(actions: [
-            IconButton(
-                onPressed: () => provider.getAllCat(), icon: Icon(Icons.print))
-          ], title: Text("All Procuts")),
-          body: Center(
-              child: ListView.builder(
-                  itemCount: provider.products!.length,
-                  itemBuilder: (context, index) {
-                    return ProductWidget(product: provider.products![index]);
-                  })));
-    });
-  }
-}
+// class MyHomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     // TODO: implement build
+//     return Consumer<DioProvider>(builder: (context, provider, x) {
+//       return Scaffold(
+//           appBar: AppBar(actions: [
+//             IconButton(
+//                 onPressed: () => provider.getAllCat(), icon: Icon(Icons.print))
+//           ], title: Text("All Procuts")),
+//           body: Center(
+//               child: ListView.builder(
+//                   itemCount: provider.products!.length,
+//                   itemBuilder: (context, index) {
+//                     return ProductWidget(product: provider.products![index]);
+//                   })));
+//     });
+//   }
+// }
