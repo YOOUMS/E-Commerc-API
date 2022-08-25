@@ -19,12 +19,12 @@ class DioProvider extends ChangeNotifier {
   int page = 0;
   List<Passenger> passegers = [];
   bool isLoaded = true;
-
+  String? token;
   DioProvider() {
     getProducts();
     getAllCat();
     getProductsFor('all');
-    getPassengers();
+    login();
   }
 
   getProducts() async {
@@ -60,20 +60,25 @@ class DioProvider extends ChangeNotifier {
     dioHelper.diohelper.createPost(postRequest);
   }
 
-  getPassengers() async {
-    ChangeLoadingStatus();
-    passegers.addAll(await dioHelper.diohelper.getAllPassengers(page));
+  getPassengers(String token) async {
+    passegers.addAll(await dioHelper.diohelper.getAllPassengers(token, page));
     notifyListeners();
-    ChangeLoadingStatus();
   }
 
   loadMore() {
     page++;
-    getPassengers();
+    getPassengers(token!);
+    log('load more');
   }
 
   ChangeLoadingStatus() {
     isLoaded = !isLoaded;
     notifyListeners();
+  }
+
+  login() async {
+    token = await dioHelper.diohelper.logIn('api-user3@iwt.net', 'b3z0nV0cLO');
+
+    getPassengers(token!);
   }
 }

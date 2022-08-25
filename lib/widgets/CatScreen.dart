@@ -17,7 +17,7 @@ class CatScreen extends StatelessWidget {
     return Consumer<DioProvider>(builder: (context, provider, x) {
       return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () => provider.getPassengers(),
+          onPressed: () => provider.login(),
           child: Text('+'),
         ),
         appBar: AppBar(

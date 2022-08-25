@@ -45,7 +45,7 @@ class dioHelper {
   getOneProduct(String id) async {
     Response response = await dio.get('https://fakestoreapi.com/products/$id');
     Product product = Product.fromaMap(response.data);
-    log(product.toString());
+
     return product;
   }
 
@@ -53,13 +53,35 @@ class dioHelper {
     Response response = await dio.post(
         'https://jsonplaceholder.typicode.com/posts',
         data: postRequest.toJson());
-    log(response.statusCode.toString());
   }
 
-  Future<List<Passenger>> getAllPassengers([int page = 0]) async {
+  Future<String> logIn(String username, String password) async {
+    Map<String, dynamic> map = {
+      'scope': 'offline_access',
+      'grant_type': 'password',
+      'username': username,
+      'password': password,
+      'client_id': "0oahdhjkutaGcIK2M4x6"
+    };
+    Response response = await dio.post(
+        'https://dev-457931.okta.com/oauth2/aushd4c95QtFHsfWt4x6/v1/token',
+        queryParameters: map,
+        options: Options(headers: {
+          'Host': 'dev-457931.okta.com',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }));
+
+    return response.data['access_token'];
+  }
+
+  Future<List<Passenger>> getAllPassengers(String token, [int page = 0]) async {
+    token = token.toString().trim();
+    log('inside getallpasengers$token');
     Response response = await dio.get(
-        'https://api.instantwebtools.net/v1/passenger',
-        queryParameters: {'size': 10, 'page': page});
+        'https://api.instantwebtools.net/v2/passenger',
+        queryParameters: {'size': 10, 'page': page},
+        options: Options(headers: {'Authorization': 'Bearer ${token}'}));
+
     List data = response.data['data'];
     List<Passenger> passengers = data.map((e) {
       List airlinesData = e['airline'];
